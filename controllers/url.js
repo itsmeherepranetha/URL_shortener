@@ -14,3 +14,14 @@ export const handleGenerateNewShortUrl=async(req,res)=>{
 
     return res.json({id:nanoId});
 }
+
+
+export const handleGetAnalytics=async(req,res)=>{
+    const nanoId=req.params.nanoId;
+    const urlEntry=await URL.findOne({nanoId:nanoId});
+
+    res.json({
+        totalClicks:urlEntry.visitHistory.length,
+        analytics:urlEntry.visitHistory
+    })
+}
