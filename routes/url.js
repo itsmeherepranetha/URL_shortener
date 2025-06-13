@@ -1,5 +1,10 @@
-const express=require('express');
+import express from 'express'
+import { handleGenerateNewShortUrl } from '../controllers/url.js';
 
 const router=express.Router();
 
-router.post('/')
+router.post('/',handleGenerateNewShortUrl);
+
+router.get('/analytics')
+
+export default router;

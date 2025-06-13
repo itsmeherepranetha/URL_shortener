@@ -1,7 +1,7 @@
-const mongoose=require('mongoose');
+import mongoose from "mongoose";
 
 const urlSchema=new mongoose.Schema({
-    shortId:{
+    nanoId:{
         type:String,
         required:true,
         unique:true,
@@ -15,6 +15,4 @@ const urlSchema=new mongoose.Schema({
 {timestamps:true}
 );
 
-const URL=mongoose.model('url',urlSchema);
-
-module.exports=URL;
+export const URL=mongoose.model('url',urlSchema);
