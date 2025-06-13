@@ -12,7 +12,9 @@ export const handleGenerateNewShortUrl=async(req,res)=>{
         visitHistory:[],
     })
 
-    return res.json({id:nanoId});
+    return res.render('home',{
+        id:nanoId,
+    });
 }
 
 
