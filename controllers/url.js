@@ -10,6 +10,7 @@ export const handleGenerateNewShortUrl=async(req,res)=>{
         nanoId:nanoId,
         redirectUrl:body.url,
         visitHistory:[],
+        createdBy:req.user._id,
     })
 
     return res.render('home',{

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { connectToMongoDB } from "../mongoConnect.js";
 
 const urlSchema=new mongoose.Schema({
     nanoId:{
@@ -11,6 +12,10 @@ const urlSchema=new mongoose.Schema({
         required:true,
     },
     visitHistory:[{timestamp:{type:Number}}],
+    createdBy:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'user'
+    }
 },
 {timestamps:true}
 );

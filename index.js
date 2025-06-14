@@ -1,11 +1,14 @@
 import express from 'express'
 const app=express();
 import path from 'path';
+import cookieParser from 'cookie-parser';
 import { connectToMongoDB } from './mongoConnect.js';
 import { URL } from './models/url.js';
 const PORT=8000;
-import router from './routes/url.js';
+import urlRouter from './routes/url.js';
 import staticRouter from './routes/staticRouter.js';
+import userRouter from './routes/user.js';
+import { checkAuth, restrictToLoggedInUserOnly } from './middlewares/auth.js';
 import dotenv from 'dotenv';
 dotenv.config();
 const MONGODB_URL=process.env.MONGODB_URL;
@@ -17,10 +20,12 @@ app.set('views',path.resolve('./views'));
 
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
+app.use(cookieParser());
 
 
-app.use('/url',router);
-app.use('/',staticRouter);
+app.use('/url',restrictToLoggedInUserOnly,urlRouter);
+app.use('/user',userRouter);
+app.use('/',checkAuth,staticRouter);
 
 app.get('/:nanoId',async(req,res)=>{
     const nanoId=req.params.nanoId;
